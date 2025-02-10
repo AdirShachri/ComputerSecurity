@@ -1,0 +1,81 @@
+{% extends "users/base.html" %}
+
+{% block title %} Login Page {% endblock title %}
+
+{% block content %}
+<section class="container">
+    <div class="form-content my-3 p-3">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                
+                <div class="login-container card shadow-lg border-0 mt-5" style="border-radius: 15px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);">
+                    <div class="circle circle-one"></div>
+
+                    <div class="form-container">
+                        <img src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png" alt="illustration" class="illustration" />
+                        <h3 class="font-weight-light text-center opacity">Sign In</h3>
+
+                        
+                    {% if messages %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {% for message in messages %}
+                                    <li>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                        {% if form.errors %}
+                            
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius: 10px;">
+                                <div id="form_errors">
+                                    {% for key, value in form.errors.items %}
+                                        <strong>{{ value }}</strong>
+                                    {% endfor %}
+                                </div>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endif %}
+
+                        
+                        <div class="card-body" style="padding: 20px;">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label class="small mb-1 opacity">Username</label>
+                                    {{ form.username }}
+                                </div>
+                                <div class="form-group">
+                                    <label class="small mb-1 opacity">Password</label>
+                                    {{ form.password }}
+                                </div>
+                                <div class="form-group text-center">
+                                    <button class="btn btn-dark opacity" style="width: 100%; background-color: #0e73d8; color: white; border-radius: 10px;">Sign in</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="register-forget opacity text-center">
+                            <a href="{% url 'register' %}" style="color: #0c0d0e;">Don't have an account yet? Go to signup</a><br>
+                            <a href="{% url 'forgot_password' %}" style="color: #080909;">Forgot Password?</a>
+                        </div>
+                    </div>
+
+                    <div class="circle circle-two"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+<div class="form-group">
+    <label class="small mb-1 opacity">Username</label>
+    {{ form.username.value|default_if_none:'' }}
+</div>
+<div class="form-group">
+    <label class="small mb-1 opacity">Password</label>
+    {{ form.password }}
+</div>
