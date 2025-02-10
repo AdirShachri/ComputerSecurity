@@ -1,0 +1,69 @@
+{% extends "users/base.html" %}
+{% block title %} Register Customer {% endblock title %}
+
+{% block content %}
+<section class="container">
+    <div class="form-content my-3 p-3">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                
+                <div class="login-container card shadow-lg border-0 rounded-lg mt-5 mb-3"
+                     style="border-radius: 15px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);">
+                    <div class="circle circle-one"></div>
+
+                    <div class="form-container py-4 px-3">
+                        
+                        <h3 class="font-weight-light text-center opacity" style="color: #333;">Create Customer Account</h3>
+
+                        
+                        {% if form.errors %}
+                            <div class="alert alert-danger text-center mt-3" style="border-radius: 10px;">
+                                {% for key, value in form.errors.items %}
+                                    <strong>{{ value }}</strong><br>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        
+                        <form method="POST" class="mt-4">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="id_name" style="color: #343a40;">Name</label>
+                                        {{ form.name }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="id_email" style="color: #343a40;">Email</label>
+                                        {{ form.email }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="id_phone" style="color: #343a40;">Phone</label>
+                                        {{ form.phone }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group text-center mt-4">
+                                <button type="submit" class="btn btn-dark col-md-12 opacity"
+                                        style="background-color: #0e73d8; color: white; border-radius: 10px;">
+                                    Sign Up
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="circle circle-two"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

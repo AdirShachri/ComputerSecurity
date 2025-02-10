@@ -1,0 +1,123 @@
+{% extends "users/base.html" %}
+{% block title %} Register Page {% endblock title %}
+
+{% block content %}
+<style>
+    
+    body {
+        background-color: #5f6164; 
+        background-size: cover;
+        color: #fff;
+    }
+
+    
+    .glass-card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        color: #000;
+    }
+
+   
+    
+    .card-header h3 {
+        color: #000;
+    }
+</style>
+
+<section class="container">
+  
+    
+
+    <div class="form-content my-3 p-3">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+               
+                <div class="card glass-card shadow-lg border-0 rounded-lg mt-4">
+                    <div class="card-header text-center" style="background-color: transparent;">
+                        <h3 class="font-weight-light my-3">Create Account</h3>
+                    </div>
+
+                    
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+
+                            
+                            {% if form.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <div id="form_errors">
+                                        {% for key, value in form.errors.items %}
+                                            <strong>{{ value }}</strong>
+                                        {% endfor %}
+                                    </div>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            {% endif %}
+
+                           
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="small mb-1">First Name</label>
+                                        {{ form.first_name }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="small mb-1">Last Name</label>
+                                        {{ form.last_name }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="small mb-1">Username</label>
+                                        {{ form.username }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="small mb-1">Email</label>
+                                        {{ form.email }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="small mb-1">Password</label>
+                                        {{ form.password1 }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="small mb-1">Confirm Password</label>
+                                        {{ form.password2 }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                            <div class="form-group mt-4 mb-0">
+                                <button type="submit" class="col-md-12 btn btn-dark">Sign Up</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    
+                    <div class="card-footer text-center" style="background-color: transparent;">
+                        <div class="small">
+                            <a href="{% url 'login' %}" style="color: #007bff;">Have an account? Go to Sign in</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

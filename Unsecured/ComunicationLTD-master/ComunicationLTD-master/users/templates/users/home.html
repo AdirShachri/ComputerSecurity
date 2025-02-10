@@ -1,0 +1,89 @@
+{% extends "users/base.html" %}
+
+{% block title %} Home Page {% endblock title %}
+
+{% block content %}
+<style>
+    
+    body {
+        background-color: #636465;
+        background-size: cover;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+    }
+
+    
+    .glass-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        color: #000;
+        padding: 40px;
+    }
+
+    
+    .btn-custom {
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-size: 1.1rem;
+        margin: 5px;
+    }
+
+    
+    .hostages-sign {
+        position: fixed;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        width: 120px;
+        height: auto;
+        z-index: 1000;
+    }
+
+    h1, p {
+        color: #333;
+    }
+</style>
+
+<section class="container">
+    
+    
+
+    <div class="form-content my-3 p-3">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+               
+                <div class="glass-card text-center shadow-lg mt-5">
+                    <h1 class="display-4">
+                        Welcome, {{ user.first_name.title|default:'Guest' }}
+                    </h1>
+                    <p class="lead">
+                        {% if user.is_authenticated %}
+                            Enjoy managing your customers and account!
+                        {% else %}
+                            Please sign in to access your account.
+                        {% endif %}
+                    </p>
+
+                    
+                    <div class="mt-4">
+                        {% if user.is_authenticated %}
+                            <form method="post" action="{% url 'logout' %}?next={% url 'login' %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary btn-custom">Logout</button>
+                            </form>
+                            <a href="{% url 'password_change' %}" class="btn btn-secondary btn-custom">Change Password</a>
+                            <a href="{% url 'customers_register' %}" class="btn btn-info btn-custom">Register Customer</a>
+                            <a href="{% url 'customer_list' %}" class="btn btn-success btn-custom">View Customers</a>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-primary btn-custom">Sign In</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
